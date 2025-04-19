@@ -1,0 +1,22 @@
+import casa.*
+import cosas.*
+
+describe "Pruebas del ejercicio"{
+    
+    test "Pruebas de metodos de gestion de compras"{
+        casaDePepeYJulian.comprar(heladera)
+        casaDePepeYJulian.comprar(cama)
+        casaDePepeYJulian.comprar(plancha)
+        
+        assert.equals([heladera, cama, plancha], casaDePepeYJulian.cosasCompradas())
+        assert.equals(3, casaDePepeYJulian.cantidadDeCosasCompradas())
+        assert.that(casaDePepeYJulian.tieneAlgun(electrodomestico))
+        assert.that(casaDePepeYJulian.tieneAlgun(mueble))
+        assert.that(!casaDePepeYJulian.tieneAlgun(comida))
+        assert.that(!casaDePepeYJulian.malaEpoca())
+        assert.equals([tiraDeAsado, paqueteDeFideos], casaDePepeYJulian.queFaltaComprar([tiraDeAsado, paqueteDeFideos, plancha]))
+        assert.that(casaDePepeYJulian.faltaComida())
+        assert.equals(#{electrodomestico, mueble} , casaDePepeYJulian.categoriasCompradas())
+    }
+    
+}

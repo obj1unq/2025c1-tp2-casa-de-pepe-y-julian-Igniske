@@ -4,6 +4,10 @@ object casaDePepeYJulian {
 
     const cosasCompradas = []
 
+    method cosasCompradas(){
+        return cosasCompradas
+    }
+
     method comprar(cosa){
         return cosasCompradas.add(cosa)
     }
@@ -37,15 +41,15 @@ object casaDePepeYJulian {
     }
 
     method queFaltaComprar(lista){
-        return cosasCompradas.filter({cosa => !lista.contains(cosa)})
+        return lista.filter({cosa => !cosasCompradas.contains(cosa)})
     }
 
     method faltaComida() {
         return self.comprados(comida).size() < 2
     }
 
-    method categoríasCompradas(){
-        return self.obtenerCategorias().uniqueElement()
+    method categoriasCompradas(){
+        return self.obtenerCategorias().asSet()
     }
 
     //Utils
