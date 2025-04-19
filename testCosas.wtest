@@ -1,22 +1,62 @@
 import casa.*
 import cosas.*
 
-describe "Pruebas del ejercicio"{
+describe "Pruebas del ejercicio" {
+  test "Pruebas de metodos de gestion de compras" {
+    /*Inicializo el valor de las cuenta corriente con un valor alto para poder probar los tests de gestion de compras sin problema.*/
+    casaDePepeYJulian.cuentaCorriente(1000000)
     
-    test "Pruebas de metodos de gestion de compras"{
-        casaDePepeYJulian.comprar(heladera)
-        casaDePepeYJulian.comprar(cama)
-        casaDePepeYJulian.comprar(plancha)
-        
-        assert.equals([heladera, cama, plancha], casaDePepeYJulian.cosasCompradas())
-        assert.equals(3, casaDePepeYJulian.cantidadDeCosasCompradas())
-        assert.that(casaDePepeYJulian.tieneAlgun(electrodomestico))
-        assert.that(casaDePepeYJulian.tieneAlgun(mueble))
-        assert.that(!casaDePepeYJulian.tieneAlgun(comida))
-        assert.that(!casaDePepeYJulian.malaEpoca())
-        assert.equals([tiraDeAsado, paqueteDeFideos], casaDePepeYJulian.queFaltaComprar([tiraDeAsado, paqueteDeFideos, plancha]))
-        assert.that(casaDePepeYJulian.faltaComida())
-        assert.equals(#{electrodomestico, mueble} , casaDePepeYJulian.categoriasCompradas())
-    }
+    casaDePepeYJulian.comprar(heladera)
+    casaDePepeYJulian.comprar(cama)
+    casaDePepeYJulian.comprar(plancha)
     
+    
+    assert.equals([heladera, cama, plancha], casaDePepeYJulian.cosasCompradas())
+    assert.equals(3, casaDePepeYJulian.cantidadDeCosasCompradas())
+    assert.that(casaDePepeYJulian.tieneAlgun(electrodomestico))
+    assert.that(casaDePepeYJulian.tieneAlgun(mueble))
+    assert.that(!casaDePepeYJulian.tieneAlgun(comida))
+    assert.that(!casaDePepeYJulian.malaEpoca())
+    assert.equals(
+      [tiraDeAsado, paqueteDeFideos],
+      casaDePepeYJulian.queFaltaComprar([tiraDeAsado, paqueteDeFideos, plancha])
+    )
+    assert.that(casaDePepeYJulian.faltaComida())
+    assert.equals(#{electrodomestico, mueble}, casaDePepeYJulian.categoriasCompradas())
+  }
+  
+  test "Pruebas de metodos de cuenta bancaria corriente" {
+    casaDePepeYJulian.cuentaCorriente(20)
+    casaDePepeYJulian.depositarEnCuentaCorriente(1000)
+    
+    assert.equals(1020, casaDePepeYJulian.cuentaCorriente())
+    
+    casaDePepeYJulian.extraerEnCuentaCorriente(50)
+    
+    assert.equals(970, casaDePepeYJulian.cuentaCorriente())
+  }
+  
+  test "pruebas de metodos de cuenta bancaria con gastos" {
+    casaDePepeYJulian.cuentaConGastos(500)
+    casaDePepeYJulian.costoOperacion(20)
+    
+    casaDePepeYJulian.depositarEnCuentaGastos(1000)
+    assert.equals(1480, casaDePepeYJulian.cuentaConGastos())
+    
+    casaDePepeYJulian.extraerEnCuentaConGastos(30)
+    assert.equals(1450, casaDePepeYJulian.cuentaConGastos())
+    
+    //Lo mismo que en el anterior test
+    //casaDePepeYJulian.depositarEnCuentaGastos(2000)
+    casaDePepeYJulian.extraerEnCuentaConGastos(2000)
+    assert.equals(-550, casaDePepeYJulian.cuentaConGastos())
+  }
+  
+  test "pruebas de compras" {
+    casaDePepeYJulian.cuentaCorriente(1000)
+    casaDePepeYJulian.comprar(tiraDeAsado)
+    casaDePepeYJulian.comprar(paqueteDeFideos)
+    
+    assert.equals(600, casaDePepeYJulian.cuentaCorriente())
+  }
 }
